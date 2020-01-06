@@ -1,0 +1,132 @@
+﻿<Window x:Class="AT03___Model.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AT03___Model"
+        xmlns:viewModels="clr-namespace:AT03___Model.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1000">
+
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"
+              Background="DarkCyan">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="{Binding NewFileCommand}"/>
+                <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=tbxToolFileName, Path=Text}"/>
+                <MenuItem Header="_Save" Command="{Binding SaveToFileCommand}"/>
+                <MenuItem Header="Save _As" Command="{Binding SaveAsCommand}" CommandParameter="{Binding ElementName=tbxToolFileName, Path=Text}"/>
+                <MenuItem Header="E_xit" Command="{Binding CloseAppCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Draw a Dress" Command="{Binding Path=DrawDressCommand}"/>
+        </Menu>
+
+        <ToolBar DockPanel.Dock="Top" 
+                 Background="Aqua"
+                 Height="Auto">
+            <Label Content="_File Name:"
+                   Target="{Binding ElementName=tbxToolFileName}"
+                   VerticalAlignment="Center"
+                   FontSize="10"
+                   FontWeight="Medium"/>
+            <TextBox Name="tbxToolFileName"
+                     VerticalAlignment="Center"
+                     FontSize="12"
+                     FontWeight="Bold"
+                     MinWidth="200"
+                     Height="Auto"/>
+        </ToolBar>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Name</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Tlf</Label>
+                <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Address</Label>
+                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Height</Label>
+                <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">Hair Color</Label>
+                <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Weight</Label>
+                <Label Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center">Comments</Label>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="0"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxName"
+                     Text="{Binding Path=CurrentModel.Name}"
+                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="1"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxTlf"
+                     Text="{Binding Path=CurrentModel.Tlf}"
+                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="2"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxAddress"
+                     Text="{Binding Path=CurrentModel.Address}"
+                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="3"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxHeight"
+                     Text="{Binding Path=CurrentModel.Height}"
+                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="4"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxHairColor"
+                     Text="{Binding Path=CurrentModel.HairColor}"
+                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="5"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxWeight"
+                     Text="{Binding Path=CurrentModel.Weight}"
+                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Column="1" 
+                     Grid.Row="6"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxComments"
+                     Text="{Binding Path=CurrentModel.Comments}"
+                     Style="{StaticResource TextBoxStyle}"/>
+            </Grid>
+            
+
+        </Grid>
+
+    </DockPanel>
+</Window>
