@@ -76,6 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="Views\AssignmentView.xaml.cs">
       <DependentUpon>AssignmentView.xaml</DependentUpon>

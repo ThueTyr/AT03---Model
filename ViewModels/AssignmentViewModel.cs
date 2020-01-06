@@ -12,6 +12,12 @@ namespace AT03___Model.ViewModels
 {
     public class AssignmentViewModel: BindableBase
     {
+        public AssignmentViewModel(string title, Assignment assignment)
+        {
+            Title = title;
+            CurrentAssignment = assignment;
+        }
+
         string _title;
         public string Title
         {
@@ -27,34 +33,24 @@ namespace AT03___Model.ViewModels
             set => SetProperty(ref _currentAssignment, value);
         }
 
-        private Assignment _assignment;
-
-
-
-        public AssignmentViewModel(string title, Assignment assignment)
-        {
-            Title = title;
-            CurrentAssignment = assignment;
-        }
-
         private bool _isValid = false;
 
         public bool IsValid
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(CurrentAssignment.ClientName))
-                    return false;
-                if (string.IsNullOrWhiteSpace(CurrentAssignment.DurationInDays.ToString()))
-                    return false;
-                if (string.IsNullOrWhiteSpace(CurrentAssignment.StartDate.ToString()))
-                    return false;
-                if (string.IsNullOrWhiteSpace(CurrentAssignment.Location))
-                    return false;
-                if (string.IsNullOrWhiteSpace(CurrentAssignment.NumberOfModels.ToString()))
-                    return false;
-                if (string.IsNullOrWhiteSpace(CurrentAssignment.Comments))
-                    return false;
+                //if (string.IsNullOrWhiteSpace(CurrentAssignment.ClientName))
+                //    return false;
+                //if (string.IsNullOrWhiteSpace(CurrentAssignment.DurationInDays.ToString()))
+                //    return false;
+                //if (string.IsNullOrWhiteSpace(CurrentAssignment.StartDate.ToString()))
+                //    return false;
+                //if (string.IsNullOrWhiteSpace(CurrentAssignment.Location))
+                //    return false;
+                //if (string.IsNullOrWhiteSpace(CurrentAssignment.NumberOfModels.ToString()))
+                //    return false;
+                //if (string.IsNullOrWhiteSpace(CurrentAssignment.Comments))
+                //    return false;
                 _isValid = true;
                 return _isValid;
             }
@@ -70,7 +66,6 @@ namespace AT03___Model.ViewModels
                                OkBtnCommand_Execute, OkBtnCommand_CanExecute)
                            .ObservesProperty(() => CurrentAssignment.ClientName)
                            .ObservesProperty(() => CurrentAssignment.DurationInDays)
-                           .ObservesProperty(() => CurrentAssignment.StartDate)
                            .ObservesProperty(() => CurrentAssignment.Location)
                            .ObservesProperty(() => CurrentAssignment.NumberOfModels)
                            .ObservesProperty(() => CurrentAssignment.Comments));

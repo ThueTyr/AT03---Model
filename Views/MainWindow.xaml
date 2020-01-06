@@ -24,7 +24,6 @@
             </MenuItem>
             <MenuItem Header="_Assignments">
                 <MenuItem Header="_New Assignment" Command="{Binding Path=AddAssignmentCommand}"/>
-                <MenuItem Header="_Unplanned Assignments" Command="{Binding Path=GetNewAssignmentsCommand}"/>
             </MenuItem>
             <MenuItem Header="_Draw a Dress" Command="{Binding Path=DrawDressCommand}"/>
         </Menu>
@@ -139,7 +138,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <Label>Models</Label>
+                    <Label Background="BlueViolet">Models</Label>
                     <ListBox
                         VerticalAlignment="Center"
                         Height="150"
@@ -151,7 +150,48 @@
                         ItemTemplate="{StaticResource ModelsDataTemplate}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2">
-                    <Label>New Assignments</Label>
+                    <Label Background="BlueViolet">New Assignments</Label>
+                    <ToolBar Background="Lavender">
+                        <Button
+                            ToolTip="Assign Model To Task"
+                            Command="{Binding Path=AssignModelCommand}"
+                            Height="20"
+                            Width="70"
+                            Name="btnAssignModel"
+                            Margin="5,2"
+                            Background="Bisque"
+                            Style="{StaticResource ResourceKey=ButtonStyle}" 
+                            >Add Model</Button>
+                        <Button
+                            ToolTip="Plan Assignment"
+                            Command="{Binding Path=PlanAssignmentCommand}"
+                            Height="20"
+                            Width="70"
+                            Name="btnPlanAssignment"
+                            Margin="5,2"
+                            Background="Bisque"
+                        >Plan Assignment</Button>
+                        <Button
+                            ToolTip="Previous Assignment"
+                            Command="{Binding Path=PreviousAssignmentCommand}"
+                            Height="20"
+                            Width="70"
+                            Name="btnDecrementIndex"
+                            Margin="5,2"
+                            Background="Bisque"
+                            Style="{StaticResource ResourceKey=ButtonStyle}" 
+                        >Decrement</Button>
+                        <Button
+                            ToolTip="Next Assignment"
+                            Command="{Binding Path=NextAssignmentCommand}"
+                            Height="20"
+                            Width="70"
+                            Name="btnNextIndex"
+                            Margin="5,2"
+                            Background="Bisque"
+                            Style="{StaticResource ResourceKey=ButtonStyle}" 
+                        >Increment</Button>
+                    </ToolBar>
                     <ListBox
                         VerticalAlignment="Center"
                         Height="150"
@@ -159,6 +199,17 @@
                         
                         ItemsSource="{Binding Path=NewAssignments}"
                         SelectedItem="{Binding Path=CurrentNewAssignment}"
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemTemplate="{StaticResource AssignmentsDataTemplate}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4">
+                    <Label Background="BlueViolet">New Assignments</Label>
+                    <ListBox
+                        VerticalAlignment="Center"
+                        Height="150"
+                        Width="Auto"
+                        ItemsSource="{Binding Path=PlannedAssignments}"
+                        SelectedItem="{Binding Path=CurrentPlannedAssignment}"
                         IsSynchronizedWithCurrentItem="True"
                         ItemTemplate="{StaticResource AssignmentsDataTemplate}"/>
                 </StackPanel>
