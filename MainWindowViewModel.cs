@@ -110,11 +110,13 @@ namespace AT03___Model
 
         void SaveToFileCommand_Execute()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Model>));
+            XmlSerializer serializerModel = new XmlSerializer(typeof(ObservableCollection<Model>));
+            XmlSerializer serializerAssignment = new XmlSerializer(typeof(ObservableCollection<Assignment>));
+            //XmlSerializer serializerModel = new XmlSerializer(typeof(ObservableCollection<Model>));
             TextWriter streamWriter = new StreamWriter(_filename);
-            serializer.Serialize(streamWriter, Models);
-            serializer.Serialize(streamWriter, PlannedAssignments);
-            serializer.Serialize(streamWriter, NewAssignments);
+            serializerModel.Serialize(streamWriter, Models);
+            serializerAssignment.Serialize(streamWriter, PlannedAssignments);
+            serializerAssignment.Serialize(streamWriter, NewAssignments);
             streamWriter.Close();
         }
 

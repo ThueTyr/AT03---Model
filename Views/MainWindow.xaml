@@ -203,15 +203,24 @@
                         ItemTemplate="{StaticResource AssignmentsDataTemplate}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="4">
-                    <Label Background="BlueViolet">New Assignments</Label>
+                    <Label Background="BlueViolet">Planned Assignments</Label>
                     <ListBox
                         VerticalAlignment="Center"
-                        Height="150"
+                        Height="75"
                         Width="Auto"
                         ItemsSource="{Binding Path=PlannedAssignments}"
                         SelectedItem="{Binding Path=CurrentPlannedAssignment}"
                         IsSynchronizedWithCurrentItem="True"
                         ItemTemplate="{StaticResource AssignmentsDataTemplate}"/>
+                    <Label Background="BlueViolet">Models in Assignments</Label>
+                    <ListBox
+                        VerticalAlignment="Center"
+                        Height="75"
+                        Width="Auto"
+                        ItemsSource="{Binding Path=CurrentPlannedAssignment.AssignedModels}"
+                        SelectedItem="{Binding Path=CurrentModel}"
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemTemplate="{StaticResource ModelsDataTemplate}"/>
                 </StackPanel>
             </Grid>
            
