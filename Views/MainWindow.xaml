@@ -139,7 +139,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <Label Background="BlueViolet">Models</Label>
-                    <ListBox
+                    <DataGrid
                         VerticalAlignment="Center"
                         Height="150"
                         Width="Auto"
@@ -155,13 +155,13 @@
                         <Button
                             ToolTip="Assign Model To Task"
                             Command="{Binding Path=AssignModelCommand}"
-                            Height="20"
+                            Height="70"
                             Width="70"
                             Name="btnAssignModel"
                             Margin="5,2"
                             Background="Bisque"
                             Style="{StaticResource ResourceKey=ButtonStyle}" 
-                            >Add Model</Button>
+                            ><Image Source="../Model.bmp"></Image></Button>
                         <Button
                             ToolTip="Plan Assignment"
                             Command="{Binding Path=PlanAssignmentCommand}"
@@ -192,7 +192,7 @@
                             Style="{StaticResource ResourceKey=ButtonStyle}" 
                         >Increment</Button>
                     </ToolBar>
-                    <ListBox
+                    <DataGrid
                         VerticalAlignment="Center"
                         Height="150"
                         Width="Auto"
@@ -204,7 +204,7 @@
                 </StackPanel>
                 <StackPanel Grid.Row="4">
                     <Label Background="BlueViolet">Planned Assignments</Label>
-                    <ListBox
+                    <DataGrid
                         VerticalAlignment="Center"
                         Height="75"
                         Width="Auto"
@@ -213,7 +213,7 @@
                         IsSynchronizedWithCurrentItem="True"
                         ItemTemplate="{StaticResource AssignmentsDataTemplate}"/>
                     <Label Background="BlueViolet">Models in Assignments</Label>
-                    <ListBox
+                    <DataGrid
                         VerticalAlignment="Center"
                         Height="75"
                         Width="Auto"

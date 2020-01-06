@@ -85,5 +85,9 @@
                 Margin="5"
                 Grid.Column="2"
         />
+
+        <Image Source="/Model.bmp"
+               Grid.Column="2"
+               Grid.Row="1"/>
     </Grid>
 </Window>

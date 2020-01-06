@@ -302,7 +302,7 @@ namespace AT03___Model
             return CurrentNewAssignment != null;
         }
 
-        private ICommand _nextAssignmentCommand;
+        //private ICommand _nextAssignmentCommand;
         public ICommand NextAssignmentCommand => new DelegateCommand(NextAssignmentCommand_Execute, NextAssignmentCommand_CanExecute).ObservesProperty(() => CurrentIndex);
 
         private void NextAssignmentCommand_Execute()
@@ -316,7 +316,7 @@ namespace AT03___Model
             return CurrentIndex < NewAssignments.Count-1;
         }
 
-        private ICommand _previousAssignmentCommand;
+        //private ICommand _previousAssignmentCommand;
         public ICommand PreviousAssignmentCommand => new DelegateCommand(PreviousAssignmentCommand_Execute, PreviousAssignmentCommand_CanExecute).ObservesProperty(() => CurrentIndex);
 
         private void PreviousAssignmentCommand_Execute()
@@ -339,7 +339,7 @@ namespace AT03___Model
                 return _drawADressCommand ?? (_drawADressCommand = new DelegateCommand(() =>
                 {
                     var view = new DrawADressView();
-                    view.ShowDialog();
+                    view.Show(); //Modale
                 }));
             }
         }
