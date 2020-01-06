@@ -4,12 +4,75 @@
              xmlns:local="clr-namespace:AT03___Model"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="Cyan"/>
 
         <!--TextBox Style-->
         <Style x:Key="TextBoxStyle" TargetType="{x:Type Control}">
             <Setter Property="FontSize" Value="9pt" />
             <Setter Property="BorderThickness" Value="5" />
         </Style>
+
+        <DataTemplate x:Key="ModelsDataTemplate">
+            <WrapPanel>
+                <TextBlock Text="{Binding Path=Name}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Name}"/>
+                <TextBlock Text="{Binding Path=Tlf}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Tlf}"/>
+                <TextBlock Text="{Binding Path=Address}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Address}"/>
+                <TextBlock Text="{Binding Path=Height}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Height}"/>
+                <TextBlock Text="{Binding Path=Weight}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Weight}"/>
+                <TextBlock Text="{Binding Path=HairColor}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=HairColor}"/>
+                <TextBlock Text="{Binding Path=Comments}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Comments}"/>
+            </WrapPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AssignmentsDataTemplate">
+            <WrapPanel>
+                <TextBlock Text="{Binding Path=ClientName}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=ClientName}"/>
+                <TextBlock Text="{Binding Path=StartDate}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=StartDate}"/>
+                <TextBlock Text="{Binding Path=DurationInDays}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=DurationInDays}"/>
+                <TextBlock Text="{Binding Path=Location}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Location}"/>
+                <TextBlock Text="{Binding Path=NumberOfModels}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Weight}"/>
+                <TextBlock Text="{Binding Path=Comments}"
+                           Padding="5,0"
+                           Width="80"
+                           Foreground="{Binding Path=Comments}"/>
+            </WrapPanel>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

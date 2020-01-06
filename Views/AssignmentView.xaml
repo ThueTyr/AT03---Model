@@ -1,0 +1,89 @@
+﻿<Window x:Class="AT03___Model.Views.AssignmentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AT03___Model.Views"
+        mc:Ignorable="d"
+        Title="AssignmentView" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Client</Label>
+        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">StartDate</Label>
+        <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Duration in days</Label>
+        <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Location</Label>
+        <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">Number of models</Label>
+        <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Comments</Label>
+        <TextBox Grid.Column="1" 
+                     Grid.Row="0"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxClientName"
+                     Text="{Binding Path=CurrentAssignment.ClientName}"
+                     Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Grid.Column="1" 
+                     Grid.Row="1"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxTlf"
+                     Text="{Binding Path=CurrentAssignment.StartDate}"
+                     Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Grid.Column="1" 
+                     Grid.Row="2"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxDurationInDays"
+                     Text="{Binding Path=CurrentAssignment.DurationInDays}"
+                     Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Grid.Column="1" 
+                     Grid.Row="3"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxLocation"
+                     Text="{Binding Path=CurrentAssignment.Location}"
+                     Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Grid.Column="1" 
+                     Grid.Row="4"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxNumberOfModels"
+                     Text="{Binding Path=CurrentAssignment.NumberOfModels}"
+                     Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Grid.Column="1" 
+                     Grid.Row="5"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     MinWidth="250"
+                     Name="tbxComments"
+                     Text="{Binding Path=CurrentAssignment.Comments}"
+                     Style="{StaticResource TextBoxStyle}"/>
+        <Button IsDefault="True" 
+                TabIndex="5"
+                Width="50"
+                Height="50"
+                x:Name="btnOk" 
+                Click="BtnOk_Click"
+                Command="{Binding Path = OkBtnCommand}"
+                Content="_Ok"
+                Margin="5"
+                Grid.Column="2"
+        />
+    </Grid>
+</Window>

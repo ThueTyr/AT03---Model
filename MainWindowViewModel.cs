@@ -1,18 +1,16 @@
-﻿using AT03___Model.Models;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
+using AT03___Model.Models;
+using AT03___Model.ViewModels;
+using AT03___Model.Views;
 using Prism.Commands;
+using Prism.Mvvm;
 
-namespace AT03___Model.ViewModels
+namespace AT03___Model
 {
     public class MainWindowViewModel: BindableBase
     {
@@ -23,6 +21,10 @@ namespace AT03___Model.ViewModels
         private ObservableCollection<Model> _models;
         private Model _currentModel = null;
         private int _currentIndex = -1;
+        private ObservableCollection<Assignment> _plannedAssignments = new ObservableCollection<Assignment>();
+        private Assignment _currentPlannedAssignment = null;
+        private ObservableCollection<Assignment> _newAssignments = new ObservableCollection<Assignment>();
+        private Assignment _currentNewAssignment = null;
 
         #endregion
 
@@ -46,6 +48,30 @@ namespace AT03___Model.ViewModels
             set => SetProperty(ref _currentIndex, value);
         }
 
+        public ObservableCollection<Assignment> PlannedAssignments
+        {
+            get => _plannedAssignments;
+            set => SetProperty(ref _plannedAssignments, value);
+        }
+
+        public Assignment CurrentPlannedAssignment
+        {
+            get => _currentPlannedAssignment;
+            set => SetProperty(ref _currentPlannedAssignment, value);
+        }
+
+        public ObservableCollection<Assignment> NewAssignments
+        {
+            get => _newAssignments;
+            set => SetProperty(ref _newAssignments, value);
+        }
+
+        public Assignment CurrentNewAssignment
+        {
+            get => _currentNewAssignment;
+            set => SetProperty(ref _currentNewAssignment, value);
+        }
+
         #endregion
 
         public MainWindowViewModel()
@@ -57,6 +83,7 @@ namespace AT03___Model.ViewModels
             };
 
             CurrentModel = null;
+            CurrentNewAssignment = null;
         }
 
         #region SaveDataToFile
@@ -69,7 +96,9 @@ namespace AT03___Model.ViewModels
             {
                 return _saveToFileCommand ?? (_saveToFileCommand =
                            new DelegateCommand(SaveToFileCommand_Execute, SaveToFileCommand_CanExecute)
-                               .ObservesProperty(() => Models.Count));
+                               .ObservesProperty(() => Models.Count)
+                               .ObservesProperty(() => PlannedAssignments.Count)
+                               .ObservesProperty(() => NewAssignments.Count));
             }
         }
 
@@ -78,6 +107,8 @@ namespace AT03___Model.ViewModels
             XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Model>));
             TextWriter streamWriter = new StreamWriter(_filename);
             serializer.Serialize(streamWriter, Models);
+            serializer.Serialize(streamWriter, PlannedAssignments);
+            serializer.Serialize(streamWriter, NewAssignments);
             streamWriter.Close();
         }
 
@@ -138,6 +169,8 @@ namespace AT03___Model.ViewModels
             {
                 _filename = argFilename;
                 var tempModels = new ObservableCollection<Model>();
+                var tempPlanned = new ObservableCollection<Assignment>();
+                var tempNew = new ObservableCollection<Assignment>();
 
                 // Create an instance of the XmlSerializer class and specify the type of object to deserialize.
                 XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Model>));
@@ -146,6 +179,8 @@ namespace AT03___Model.ViewModels
                     TextReader reader = new StreamReader(_filename);
                     // Deserialize all the Models.
                     tempModels = (ObservableCollection<Model>)serializer.Deserialize(reader);
+                    tempPlanned = (ObservableCollection<Assignment>) serializer.Deserialize(reader);
+                    tempNew = (ObservableCollection<Assignment>)serializer.Deserialize(reader);
                     reader.Close();
                 }
                 catch (Exception ex)
@@ -154,6 +189,8 @@ namespace AT03___Model.ViewModels
                 }
 
                 Models = tempModels;
+                PlannedAssignments = tempPlanned;
+                NewAssignments = tempNew;
             }
         }
 
@@ -164,7 +201,6 @@ namespace AT03___Model.ViewModels
                                                          }));
 
         #endregion
-
 
         #region Dirty and filename
 
@@ -197,6 +233,29 @@ namespace AT03___Model.ViewModels
                 if (_dirty)
                     s = "*";
                 return FileName + s + " - " + AppTitle;
+            }
+        }
+
+        #endregion
+
+        #region DivCommands
+
+        private ICommand _addAssignmentCommand;
+
+        public ICommand AddAssignmentCommand
+        {
+            get
+            {
+                return _addAssignmentCommand ?? (_addAssignmentCommand = new DelegateCommand(() =>
+                {
+                    var newAssignment = new Assignment();
+                    var viewModel = new AssignmentViewModel("Add New Assignment", newAssignment);
+                    var view = new AssignmentView {DataContext = viewModel};
+                    if (view.ShowDialog() != true) return;
+                    NewAssignments.Add(newAssignment);
+                    CurrentNewAssignment = newAssignment;
+                    Dirty = true;
+                }));
             }
         }
 

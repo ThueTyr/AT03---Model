@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AT03___Model"
-        xmlns:viewModels="clr-namespace:AT03___Model.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000">
+        Title="MainWindow GUI V-2020" Height="700" Width="1000"
+        Background="{DynamicResource ResourceKey = BackgroundBrush}">
 
     <Window.DataContext>
-        <viewModels:MainWindowViewModel/>
+        <local:MainWindowViewModel/>
     </Window.DataContext>
 
     <DockPanel>
@@ -21,6 +21,10 @@
                 <MenuItem Header="_Save" Command="{Binding SaveToFileCommand}"/>
                 <MenuItem Header="Save _As" Command="{Binding SaveAsCommand}" CommandParameter="{Binding ElementName=tbxToolFileName, Path=Text}"/>
                 <MenuItem Header="E_xit" Command="{Binding CloseAppCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Assignments">
+                <MenuItem Header="_New Assignment" Command="{Binding Path=AddAssignmentCommand}"/>
+                <MenuItem Header="_Unplanned Assignments" Command="{Binding Path=GetNewAssignmentsCommand}"/>
             </MenuItem>
             <MenuItem Header="_Draw a Dress" Command="{Binding Path=DrawDressCommand}"/>
         </Menu>
@@ -44,6 +48,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
@@ -124,7 +129,41 @@
                      Text="{Binding Path=CurrentModel.Comments}"
                      Style="{StaticResource TextBoxStyle}"/>
             </Grid>
-            
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Label>Models</Label>
+                    <ListBox
+                        VerticalAlignment="Center"
+                        Height="150"
+                        Width="Auto"
+                        
+                        ItemsSource="{Binding Path=Models}"
+                        SelectedItem="{Binding Path=CurrentModel}"
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemTemplate="{StaticResource ModelsDataTemplate}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <Label>New Assignments</Label>
+                    <ListBox
+                        VerticalAlignment="Center"
+                        Height="150"
+                        Width="Auto"
+                        
+                        ItemsSource="{Binding Path=NewAssignments}"
+                        SelectedItem="{Binding Path=CurrentNewAssignment}"
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemTemplate="{StaticResource AssignmentsDataTemplate}"/>
+                </StackPanel>
+            </Grid>
+           
 
         </Grid>
 

@@ -8,13 +8,13 @@ namespace AT03___Model.Models
 {
     public class Model
     {
-        public string Name;
-        public string Tlf;
-        public string Address;
-        public int Height;
-        public int Weight;
-        public string HairColor;
-        public string Comments;
+        public string Name { get; set; }
+        public string Tlf { get; set; }
+        public string Address { get; set; }
+        public int Height { get; set; }
+        public int Weight { get; set; }
+        public string HairColor { get; set; }
+        public string Comments { get; set; }
 
         public Model() { }
 
