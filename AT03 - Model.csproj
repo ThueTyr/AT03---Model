@@ -61,10 +61,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AllData.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Page Include="Views\AssignmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DrawADressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,6 +85,9 @@
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="Views\AssignmentView.xaml.cs">
       <DependentUpon>AssignmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DrawADressView.xaml.cs">
+      <DependentUpon>DrawADressView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

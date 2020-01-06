@@ -110,13 +110,16 @@ namespace AT03___Model
 
         void SaveToFileCommand_Execute()
         {
-            XmlSerializer serializerModel = new XmlSerializer(typeof(ObservableCollection<Model>));
-            XmlSerializer serializerAssignment = new XmlSerializer(typeof(ObservableCollection<Assignment>));
+            XmlSerializer serializerAllData = new XmlSerializer(typeof(AllData));
+            var tempData = new AllData(Models,NewAssignments,PlannedAssignments);
             //XmlSerializer serializerModel = new XmlSerializer(typeof(ObservableCollection<Model>));
+            //XmlSerializer serializerAssignment = new XmlSerializer(typeof(ObservableCollection<Assignment>));
+            //XmlSerializer serializerPlannedAssignment = new XmlSerializer(typeof(ObservableCollection<Assignment>));
             TextWriter streamWriter = new StreamWriter(_filename);
-            serializerModel.Serialize(streamWriter, Models);
-            serializerAssignment.Serialize(streamWriter, PlannedAssignments);
-            serializerAssignment.Serialize(streamWriter, NewAssignments);
+            //serializerModel.Serialize(streamWriter, Models);
+            //serializerPlannedAssignment.Serialize(streamWriter, PlannedAssignments);
+            //serializerAssignment.Serialize(streamWriter, NewAssignments);
+            serializerAllData.Serialize(streamWriter,tempData);
             streamWriter.Close();
         }
 
@@ -158,6 +161,8 @@ namespace AT03___Model
             if (msbResult != MessageBoxResult.Yes) return;
 
             Models.Clear();
+            NewAssignments.Clear();
+            PlannedAssignments.Clear();
             _filename = "";
         }
 
@@ -176,19 +181,16 @@ namespace AT03___Model
             else
             {
                 _filename = argFilename;
-                var tempModels = new ObservableCollection<Model>();
-                var tempPlanned = new ObservableCollection<Assignment>();
-                var tempNew = new ObservableCollection<Assignment>();
 
-                // Create an instance of the XmlSerializer class and specify the type of object to deserialize.
-                XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Model>));
+                var allData = new AllData();
+
+                XmlSerializer serializer = new XmlSerializer(typeof(AllData));
                 try
                 {
                     TextReader reader = new StreamReader(_filename);
-                    // Deserialize all the Models.
-                    tempModels = (ObservableCollection<Model>)serializer.Deserialize(reader);
-                    tempPlanned = (ObservableCollection<Assignment>) serializer.Deserialize(reader);
-                    tempNew = (ObservableCollection<Assignment>)serializer.Deserialize(reader);
+
+                    allData = (AllData) serializer.Deserialize(reader);
+
                     reader.Close();
                 }
                 catch (Exception ex)
@@ -196,17 +198,18 @@ namespace AT03___Model
                     MessageBox.Show(ex.Message, "Unable to open file", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                Models = tempModels;
-                PlannedAssignments = tempPlanned;
-                NewAssignments = tempNew;
+                Models = allData.Models;
+                PlannedAssignments = allData.PlannedAssignments;
+                NewAssignments = allData.NewAssignments;
             }
         }
 
         ICommand _closeAppCommand;
-        public ICommand CloseAppCommand => _closeAppCommand ?? (_closeAppCommand = new DelegateCommand(() =>
-                                                         {
-                                                             App.Current.MainWindow.Close();
-                                                         }));
+        public ICommand CloseAppCommand => 
+            _closeAppCommand ?? (_closeAppCommand = new DelegateCommand(() =>
+                {
+                    App.Current.MainWindow.Close();
+                }));
 
         #endregion
 
@@ -326,6 +329,21 @@ namespace AT03___Model
         {
             return CurrentIndex > 0;
         }
+
+        private ICommand _drawADressCommand;
+
+        public ICommand DrawADressCommand
+        {
+            get
+            {
+                return _drawADressCommand ?? (_drawADressCommand = new DelegateCommand(() =>
+                {
+                    var view = new DrawADressView();
+                    view.ShowDialog();
+                }));
+            }
+        }
+
 
         #endregion
     }
